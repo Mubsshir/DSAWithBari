@@ -1,5 +1,5 @@
 #include <iostream>
-#include "1_array.h"
+#include "array.h"
 
 int FindMax(struct Array arr)
 {
