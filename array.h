@@ -391,7 +391,7 @@ int FindMissing2(struct Array arr)
     int l = arr.A[0];
     int n = arr.length;
     int diff = l - 0;
-    for (int i = 0; i < n - 1; i++)
+    for (int i = 0; i < n; i++)
     {
         if (arr.A[i] - i != diff)
         {
