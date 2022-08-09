@@ -16,8 +16,44 @@ void Display(struct Array *arr)
     {
         printf("%d ", arr->A[i]);
     }
+    printf("\n_______________");
 }
 
+void Display(int A[], int length)
+{
+    // Function for displying element of an array
+    printf("\nElements are :\n");
+    for (int i = 0; i < length; i++)
+    {
+        printf("%d ", A[i]);
+    }
+    printf("\n_______________");
+}
+
+int FindMax(struct Array arr)
+{
+    int max = arr.A[0];
+    for (int i = 0; i < arr.length; i++)
+    {
+        if (arr.A[i] > max)
+        {
+            max = arr.A[i];
+        }
+    }
+    return max;
+};
+int FindMin(struct Array arr)
+{
+    int min = arr.A[0];
+    for (int i = 0; i < arr.length; i++)
+    {
+        if (arr.A[i] < min)
+        {
+            min = arr.A[i];
+        }
+    }
+    return min;
+};
 void Append(struct Array *arr, int value)
 {
     // Funtion for appending a value in array
@@ -386,7 +422,7 @@ int FindMissing(struct Array arr)
     int missingNumber = S - sum;
     return missingNumber;
 }
-int FindMissing2(struct Array arr)
+void FindMissing2(struct Array arr)
 {
     int l = arr.A[0];
     int n = arr.length;
@@ -402,5 +438,37 @@ int FindMissing2(struct Array arr)
             }
         }
     }
-    return 0;
+}
+
+void FindMissing3(struct Array arr)
+{
+
+    int max = FindMax(arr);
+    int min = FindMin(arr);
+    int HashTable[max + 1] = {0};
+    for (int i = 0; i < arr.length; i++)
+    {
+        HashTable[arr.A[i]]++;
+    }
+    Display(HashTable, max);
+    for (int i = min; i < max; i++)
+    {
+        if (HashTable[i] != 1)
+        {
+            printf("\nMissing: %d", i);
+        }
+    }
+}
+
+void FindDuplicate(struct Array arr)
+{
+    int duplicate = 0;
+    for (int i = 0; i < arr.length; i++)
+    {
+        if (arr.A[i] == arr.A[i + 1] && arr.A[i + 1] != duplicate)
+        {
+            printf("\nFound duplicate: %d", arr.A[i]);
+            duplicate = arr.A[i];
+        }
+    }
 }
