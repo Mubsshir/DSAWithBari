@@ -7,9 +7,9 @@
       "request": "launch",
       "args": [],
       "stopAtEntry": false,
-      "externalConsole": false,
-      "cwd": "e:/DSlearning",
-      "program": "e:/DSlearning/build/Debug/outDebug",
+      "externalConsole": true,
+      "cwd": "e:/DSlearning/Matrices",
+      "program": "e:/DSlearning/Matrices/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
