@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "e:/DSlearning/Matrices",
-      "program": "e:/DSlearning/Matrices/build/Debug/outDebug",
+      "cwd": "e:/DSlearning/Sparse Matrix",
+      "program": "e:/DSlearning/Sparse Matrix/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

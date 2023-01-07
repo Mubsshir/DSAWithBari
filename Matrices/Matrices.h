@@ -1,17 +1,43 @@
 #include <iostream>
 using namespace std;
 
-class SymMatrix
+class Matrix
 {
-private:
+protected:
     int *A;
     int n;
+
+public:
+    Matrix()
+    {
+        n = 2;
+        A = new int[n * n];
+    }
+    Matrix(int n)
+    {
+        this->n = n;
+        A = new int[n * n];
+    }
+    virtual ~Matrix()
+    {
+        delete[] A;
+    }
+    void Set(int i, int j, int x);
+    int Get(int i, int j);
+    void Display();
+    void SetRow(int i, int j, int x);
+    int GetRow(int i, int j);
+    void DisplayRow();
+};
+
+class SymMatrix : public Matrix
+{
 
 public:
     SymMatrix()
     {
         n = 2;
-        A = new int[n];
+        A = new int[n * (n + 1) / 2];
     }
     SymMatrix(int n)
     {
@@ -23,18 +49,12 @@ public:
         delete[] A;
     }
     void SetRow(int i, int j, int x);
-    void SetCol(int i, int j, int x);
     int GetRow(int i, int j);
-    int GetCol(int i, int j);
     void DisplayRow();
-    void DisplayCol();
 };
 
-class UTMatrix
+class UTMatrix : public Matrix
 {
-private:
-    int *A;
-    int n;
 
 public:
     UTMatrix()
@@ -53,18 +73,14 @@ public:
         delete[] A;
     }
     void SetRow(int i, int j, int x);
-    void SetCol(int i, int j, int x);
+    virtual void SetCol(int i, int j, int x);
     int GetRow(int i, int j);
-    int GetCol(int i, int j);
+    virtual int GetCol(int i, int j);
     void DisplayRow();
-    void DisplayCol();
+    virtual void DisplayCol();
 };
-class LTMatrix
+class LTMatrix : public UTMatrix
 {
-private:
-    int *A;
-    int n;
-
 public:
     LTMatrix()
     {
@@ -88,12 +104,8 @@ public:
     void DisplayCol();
 };
 
-class Diagonal
+class Diagonal : public Matrix
 {
-private:
-    int *A;
-    int n;
-
 public:
     Diagonal()
     {
@@ -318,6 +330,146 @@ void SymMatrix::DisplayRow()
             else
             {
                 printf("%02d ", A[j * (j - 1) / 2 + i - 1]);
+            }
+        }
+        printf("\n");
+    }
+}
+
+class TriDiagMatrix : public Matrix
+{
+public:
+    TriDiagMatrix()
+    {
+        this->n = 2;
+        A = new int[4];
+    }
+    TriDiagMatrix(int n)
+    {
+        this->n = n;
+        A = new int[3 * n - 2];
+    }
+    ~TriDiagMatrix()
+    {
+        delete[] A;
+    }
+    void setMatrix(int i, int j, int x);
+    int getMatrix(int i, int j);
+    void Display();
+};
+
+void TriDiagMatrix::setMatrix(int i, int j, int x)
+{
+    if (i - j == 0)
+    {
+        A[n + i - 2] = x;
+    }
+    else if (i - j == 1)
+        A[j - 1] = x;
+    else if (i - j == -1)
+        A[2 * (n - 1) + i] = x;
+}
+
+int TriDiagMatrix::getMatrix(int i, int j)
+{
+    if (i - j == 0)
+    {
+        return A[n + i - 2];
+    }
+    else if (i - j == 1)
+        return A[j - 1];
+    else if (i - j == -1)
+        return A[2 * (n - 1) + i];
+    else
+    {
+        return 0;
+    }
+}
+
+void TriDiagMatrix::Display()
+{
+    for (int i = 1; i <= n; i++)
+    {
+        for (int j = 1; j <= n; j++)
+        {
+            if (i - j == 0)
+            {
+                printf("%02d  ", A[n + i - 2]);
+            }
+            else if (i - j == 1)
+                printf("%02d  ", A[j - 1]);
+            else if (i - j == -1)
+                printf("%02d  ", A[2 * (n - 1) + i]);
+            else
+            {
+                printf("%02d  ");
+            }
+        }
+        printf("\n");
+    }
+}
+
+class TopLitzMatrix : public Matrix
+{
+public:
+    TopLitzMatrix()
+    {
+        this->n = 2;
+        A = new int[4];
+    }
+    TopLitzMatrix(int n)
+    {
+        this->n = n;
+        A = new int[2 * n - 1];
+    }
+    ~TopLitzMatrix()
+    {
+        delete[] A;
+    }
+    void setMatrix(int i, int j, int x);
+    int getMatrix(int i, int j);
+    void Display();
+};
+
+void TopLitzMatrix::setMatrix(int i, int j, int x)
+{
+    if (i <= j)
+    {
+        A[j - i] = x;
+    }
+    else if (i > j)
+    {
+        A[n + i - j - 1] = x;
+    }
+}
+
+int TopLitzMatrix::getMatrix(int i, int j)
+{
+    if (i <= j)
+    {
+        return A[j - i];
+    }
+
+    return A[n + i - j - 1];
+}
+
+void TopLitzMatrix::Display()
+{
+    for (int i = 1; i <= n; i++)
+    {
+        for (int j = 1; j <= n; j++)
+        {
+            if (i <= j)
+            {
+                printf("%02d ", A[j - i]);
+            }
+            else if (i > j)
+            {
+                printf("%02d ", A[n + i - j - 1]);
+            }
+            else
+            {
+                printf("00 ");
             }
         }
         printf("\n");

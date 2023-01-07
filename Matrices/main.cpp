@@ -3,17 +3,16 @@
 
 int main()
 {
-    SymMatrix LMat(4);
-    LMat.SetRow(1, 1, 1);
-    LMat.SetRow(2, 1, 2);
-    LMat.SetRow(2, 2, 3);
-    LMat.SetRow(3, 1, 4);
-    LMat.SetRow(3, 2, 5);
-    LMat.SetRow(3, 3, 6);
-    LMat.SetRow(4, 1, 7);
-    LMat.SetRow(4, 2, 8);
-    LMat.SetRow(4, 3, 9);
-    LMat.SetRow(4, 4, 10);
-    LMat.DisplayRow();
+    TopLitzMatrix top(5);
+    top.setMatrix(1, 1, 5);
+    top.setMatrix(1, 2, 6);
+    top.setMatrix(1, 3, 7);
+    top.setMatrix(1, 4, 8);
+    top.setMatrix(1, 5, 9);
+    top.setMatrix(2, 1, 1);
+    top.setMatrix(3, 1, 2);
+    top.setMatrix(4, 1, 3);
+    top.setMatrix(5, 1, 4);
+    top.Display();
     return 0;
 }
