@@ -8,5 +8,6 @@ int main()
     sp.SetElement(2, 5, 1);
     sp.SetElement(3, 1, 3);
     sp.SetElement(4, 3, 1);
+    sp.Display();
     return 0;
 }
