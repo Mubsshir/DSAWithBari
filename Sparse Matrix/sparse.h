@@ -8,18 +8,17 @@ struct Element
 
 class Sparse
 {
-private:
+public:
     int m, n, num;
     struct Element *ele;
-
-public:
-    static int index;
+    int index;
     Sparse()
     {
         m = 5;
         n = 6;
         num = 2;
         ele = new Element[num];
+        index = 0;
     }
     Sparse(int m, int n, int num)
     {
@@ -27,9 +26,11 @@ public:
         this->n = n;
         this->num = num;
         ele = new Element[num];
+        index = 0;
     }
     ~Sparse()
     {
+
         delete[] ele;
     }
     void CreateSparse();
@@ -38,8 +39,6 @@ public:
     void Display();
     int GetElemets(int i, int j);
 };
-
-int Sparse::index = 0;
 
 void Sparse::SetElement(int i, int j, int x)
 {
@@ -79,4 +78,47 @@ void Sparse::Display()
         }
         printf("\n");
     }
+}
+
+Sparse AddSparse(Sparse a, Sparse b)
+{
+    if (a.m != b.m || a.n != b.n)
+    {
+        cerr << "Only matrices with same dimensions can be added" << endl;
+        return Sparse();
+    }
+    Sparse sp(a.m, a.n, a.num + b.num);
+
+    int i = 0, j = 0;
+    while (i < a.num && j < b.num)
+    {
+        if (a.ele[i].i == b.ele[j].i && a.ele[i].j == b.ele[j].j)
+        {
+            sp.SetElement(a.ele[i].i, a.ele[i].j, a.ele[i].x + b.ele[j].x);
+            i++;
+            j++;
+        }
+        else if (a.ele[i].i < b.ele[j].i || (a.ele[i].i == b.ele[j].i && a.ele[i].j < b.ele[j].j))
+        {
+            sp.SetElement(a.ele[i].i, a.ele[i].j, a.ele[i].x);
+            i++;
+        }
+        else
+        {
+            sp.SetElement(b.ele[j].i, b.ele[j].j, b.ele[j].x);
+            j++;
+        }
+    }
+    while (i < a.num)
+    {
+        sp.SetElement(a.ele[i].i, a.ele[i].j, a.ele[i].x);
+        i++;
+    }
+    while (j < b.num)
+    {
+        sp.SetElement(b.ele[j].i, b.ele[j].j, b.ele[j].x);
+        j++;
+    }
+
+    return sp;
 }
