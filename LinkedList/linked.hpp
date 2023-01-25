@@ -53,6 +53,7 @@ public:
     int Min();
     bool Search(int key);
     bool OSearch(int key);
+    void Add(int x);
 };
 
 void LinkedList::Display()
@@ -137,6 +138,27 @@ bool LinkedList::OSearch(int key)
     }
     printf("\nKey not found\n");
     return false;
+}
+
+void LinkedList::Add(int x)
+{
+    // if list is empty then add data to head;
+    if (head == NULL)
+    {
+        head->data = x;
+        return;
+    }
+
+    // if list is not empty then go throngh the last node
+    Node *temp, *p;
+    p = head;
+    while (p)
+    {
+        p = p->next;
+    }
+    temp->data = x;
+    temp->next = NULL;
+    p->next = temp;
 }
 
 // ------------------Non oop code for c only---------------------------------------

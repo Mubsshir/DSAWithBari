@@ -1,8 +1,10 @@
 #include "linked.hpp"
 int main()
 {
-    int a[] = {1, 2, 3, 4, 5};
-    LinkedList list(a, 5);
+    LinkedList list;
+    list.Add(1);
+    list.Add(2);
+    list.Add(3);
     list.Display();
     list.OSearch(5);
     list.Display();
