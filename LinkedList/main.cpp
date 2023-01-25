@@ -16,5 +16,6 @@ int main()
          << LengthR(head);
     cout << "\nSum: " << SumUpR(head);
     cout << "\nmax: " << FindMax(head);
+    FindelemetRec(head, 6);
     return 0;
 }
