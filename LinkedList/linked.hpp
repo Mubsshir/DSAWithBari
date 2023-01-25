@@ -52,6 +52,7 @@ public:
     int Max();
     int Min();
     bool Search(int key);
+    bool OSearch(int key);
 };
 
 void LinkedList::Display()
@@ -115,6 +116,25 @@ bool LinkedList::Search(int key)
         p = p->next;
     }
     return false;
+}
+
+bool LinkedList::OSearch(int key)
+{
+    Node *q = NULL;
+    Node *p = head;
+    while (p)
+    {
+        if (p->data == key)
+        {
+            printf("Key Found");
+            q->next = p->next;
+            p->next = head;
+            head = p;
+            return true;
+        }
+        q = p;
+        p = p->next;
+    }
 }
 
 // ------------------Non oop code for c only---------------------------------------
