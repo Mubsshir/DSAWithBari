@@ -51,7 +51,7 @@ public:
     int Sum();
     int Max();
     int Min();
-    int Search(int key);
+    bool Search(int key);
 };
 
 void LinkedList::Display()
@@ -102,12 +102,19 @@ int LinkedList::Max()
     return max;
 }
 
-int LinkedList::Search(int key)
+bool LinkedList::Search(int key)
 {
     Node *p = head;
     while (p)
     {
+        if (p->data == key)
+        {
+            printf("Key Found");
+            return true;
+        }
+        p = p->next;
     }
+    return false;
 }
 
 // ------------------Non oop code for c only---------------------------------------
