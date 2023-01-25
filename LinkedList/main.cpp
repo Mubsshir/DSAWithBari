@@ -1,21 +1,12 @@
 #include "linked.hpp"
 int main()
 {
-    Node *head = new Node;
-    Node *first = new Node;
-    Node *second = new Node;
-
-    head->data = 2;
-    head->next = first;
-    first->data = 3;
-    first->next = second;
-    second->data = 6;
-    second->next = NULL;
-    Display(head);
-    cout << "\n"
-         << LengthR(head);
-    cout << "\nSum: " << SumUpR(head);
-    cout << "\nmax: " << FindMax(head);
-    FindelemetRec(head, 6);
+    int a[] = {1, 2, 3, 4, 5};
+    LinkedList list(a, 5);
+    list.Display();
+    list.OSearch(5);
+    list.Display();
+    list.OSearch(3);
+    list.Display();
     return 0;
 }

@@ -126,7 +126,7 @@ bool LinkedList::OSearch(int key)
     {
         if (p->data == key)
         {
-            printf("Key Found");
+            printf("\nKey Found\n");
             q->next = p->next;
             p->next = head;
             head = p;
@@ -135,6 +135,8 @@ bool LinkedList::OSearch(int key)
         q = p;
         p = p->next;
     }
+    printf("\nKey not found\n");
+    return false;
 }
 
 // ------------------Non oop code for c only---------------------------------------
