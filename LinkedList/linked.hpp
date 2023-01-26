@@ -11,28 +11,29 @@ public:
 class LinkedList
 {
 private:
-    Node *head;
+    Node *head, *tail;
 
 public:
     LinkedList()
     {
         head = NULL;
+        tail = NULL;
     }
     LinkedList(int a[], int n)
     {
-        Node *last, *temp;
+        Node *temp;
         head = new Node;
         head->data = a[0];
         head->next = NULL;
-        last = head;
+        tail = head;
 
         for (int i = 1; i < n; i++)
         {
             temp = new Node;
             temp->data = a[i];
             temp->next = NULL;
-            last->next = temp;
-            last = temp;
+            tail->next = temp;
+            tail = temp;
         }
     }
     ~LinkedList()
@@ -53,7 +54,9 @@ public:
     int Min();
     bool Search(int key);
     bool OSearch(int key);
-    void Add(int x);
+    void Push(int x);
+    void TPush(int x);
+    void InsertToStart(int x);
 };
 
 void LinkedList::Display()
@@ -140,25 +143,52 @@ bool LinkedList::OSearch(int key)
     return false;
 }
 
-void LinkedList::Add(int x)
+void LinkedList::Push(int x)
 {
+    Node *node = new Node;
+    node->data = x;
+    node->next = NULL;
     // if list is empty then add data to head;
+
     if (head == NULL)
     {
-        head->data = x;
+        head = tail = node;
         return;
     }
 
-    // if list is not empty then go throngh the last node
-    Node *temp, *p;
-    p = head;
-    while (p)
+    // if list is not empty then point tail pointer to node
+    tail->next = node;
+    tail = node;
+}
+
+void LinkedList::TPush(int x)
+{
+    Node *node = new Node;
+    node->data = x;
+    node->next = NULL;
+    // if list is empty then add data to head;
+
+    if (head == NULL)
+    {
+        head = node;
+        return;
+    }
+
+    // if list is not empty then walk the list till last node
+    Node *p = head;
+    while (p->next)
     {
         p = p->next;
     }
-    temp->data = x;
-    temp->next = NULL;
-    p->next = temp;
+    p->next = node;
+}
+
+void LinkedList::InsertToStart(int x)
+{
+    Node *node = new Node;
+    node->data = x;
+    node->next = head;
+    head = node;
 }
 
 // ------------------Non oop code for c only---------------------------------------
