@@ -57,6 +57,7 @@ public:
     void Push(int x);
     void TPush(int x);
     void InsertToStart(int x);
+    void InsertAt(int pos, int ele);
 };
 
 void LinkedList::Display()
@@ -124,7 +125,12 @@ bool LinkedList::Search(int key)
 
 bool LinkedList::OSearch(int key)
 {
-    Node *q = NULL;
+    if (head->data == key)
+    {
+        printf("\nKey Found\n");
+        return true;
+    }
+    Node *q = nullptr;
     Node *p = head;
     while (p)
     {
@@ -189,6 +195,17 @@ void LinkedList::InsertToStart(int x)
     node->data = x;
     node->next = head;
     head = node;
+}
+
+void LinkedList::InsertAt(int pos, int ele)
+{
+    Node *node = new Node;
+    node->data = ele;
+    Node *p = head;
+    for (int i = 1; i < pos; i++)
+    {
+        p = p->next;
+    }
 }
 
 // ------------------Non oop code for c only---------------------------------------
