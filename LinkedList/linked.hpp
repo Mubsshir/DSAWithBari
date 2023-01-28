@@ -68,6 +68,7 @@ void LinkedList::Display()
         printf("%d ", p->data);
         p = p->next;
     }
+    printf("\n");
 }
 
 int LinkedList::Length()
@@ -199,13 +200,16 @@ void LinkedList::InsertToStart(int x)
 
 void LinkedList::InsertAt(int pos, int ele)
 {
+
     Node *node = new Node;
     node->data = ele;
     Node *p = head;
-    for (int i = 1; i < pos; i++)
+    for (int i = 0; i < pos - 1; i++)
     {
         p = p->next;
     }
+    node->next = p->next;
+    p->next = node;
 }
 
 // ------------------Non oop code for c only---------------------------------------
