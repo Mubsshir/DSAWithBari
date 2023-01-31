@@ -1,0 +1,146 @@
+**********************************
+*   Author: Mohd Mubasshir Khan  *
+*   Date:  16-Jan-2023           *
+*   Sub : MDM DB Training Report *
+**********************************
+
+Topic 1 : What is database and DBMS?
+
+->  an organized collection of structured information, or data, typically stored electronically in a computer system.
+    A database management system (DBMS) is a collection of programs that allow you to create, manage, and operate a database.
+->  NRDBMS:
+        Non-relational, NoSQL databases
+        Schema-less or flexible schema
+        Designed to handle large amounts of unstructured data
+        Handle high volume, high velocity, and high variety data
+        Examples: MongoDB
+->  RDBMS:
+        Relational databases
+        Data stored in form of tables
+        Follows strict schema design
+        Use SQL for data manipulation and querying
+        Examples: MySQL, Oracle, Microsoft SQL Server
+
+Topic 2: What is Aliasing in DB?
+
+-> SQL aliases are used to give a table, or a column in a table, a temporary name.
+-> Column Aliasing : Aliases are often used to make column names more readable.An alias only exists for the duration of that query. An alias is created with the AS keyword.
+    Example: Select Count(Student) AS [Total Student] From Class.
+-> Table Aliasing ->  If a table appears more than once in the FROM clause, you need table aliases in order to keep them distinct.
+                      Self joins are common in cases where a table contains a foreign key that references the primary key of the same table.
+                      Some Rules For Table Aliasing
+                      1.Table Aliasing  is use only for internal purpose so It shouldn't cross 4 character
+                      2.Always use Uppercase
+                      3.Avoid Spaces and special character
+                      4.No need use [] in table Aliasing as it will not use any special character or spaces
+
+Topic 3: Naming convention in Esyasoft MDM DB Tables.
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
+| First Letter | Meaning                                                                                                                                 |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
+| M_           | Master:It's like enum and linked to other lookup table.Didn't change frequently                                                         |
+| L_           | Lookup : Data here changed frequently                                                                                                   |
+| T_           | Transaction: These table contains Transaction data like daily consumption,billing data etc.                                             |
+| R_           | Report : Report view by joining two or multiple tables.                                                                                 |
+| S_           | Staging : Theese tables are temporary which contains data to make chnage in target table.Data comes from Hes to Staging  for validation |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
+
+Note: 2 more following conventions are used 
+
+MU_ : Master Upload- Every Meter Upload data pushed into MU Table from there to actual target databases.
+TU_ : To Upload Transactional Data.
+
+Topic 4: Hierarchy Used in Electricity power distrubation.
+
+->Following Hierarchies are Used
+    1. Organization Hierarchy
+    2. Network Hierarchy
+
+    Organization Hierarchy: Organizations are governing bodies.They keep track of consumers and other stuff like meter installation,billing,maintanance etc.
+
+        Org. Hierarchy Top to Bottom
+
+        1. Discom - distrubation company ex. Indore Discom
+        2. Region - ex: Ujjain
+        3. Circle - ex: Shajapur
+        4. Division -ex: ShujalPur
+        5. Zone -ex: small town and villages which comes under ShujalPur
+    
+    Network Hierarchy : The network hierarchy is used to distribute power from a generation plant to consumers.
+
+        Network Hierarchy Top to Bottom
+
+        1. Substaion: Top level
+        2. Feeder : To transmit power from Substaion to DTRs.
+        3. DTR : Distribution Transformer: This is the end poin of network. from here power goes to consumers.
+                There are 2 types of DTRs
+                1. Step down: Step-down transformers reduce the voltage of incoming power from substations.
+                2. Step up :  Step-up transformers increase the voltage of incoming power from substations.
+
+Topic 5: Generations of Electricity meter.
+
+->  Legacy meters - ex.- Electro Mechanical,Digital Meters.In these meter readings are taken maually by the reader.
+->  AMR Meters    - Automatic Meter Reading . These type of meter provide one way comunication.Meter reading in these meters sent to the ftp server in form of xml.
+->  AMI           - Automatic Meter Reading by API. These type of meter provide two way comunication. Here data is sent to HES in the form of json file.
+                    two way communication means that we can also send pull request to meter to fetch data.
+                    These meters uses RF and GPRS technologies for communication.
+
+Topic 6: Smart Meter Payloads
+
+->  Instantaneous Profile (IP) : Reading is generated Every 15 minutes.it captures the real-time electricity consumption of a customer.
+                                 Meter does not save this data in the memory.
+                                 This data typically includes:
+                                 Current power consumption: the current amount of electricity being consumed in kilowatt (kW).
+                                 Voltage: the current voltage of the electricity supply.
+                                 Current: the current flow in amperes (A).
+                                 Power Factor: the ratio of real power to apparent power.
+                                 
+-> Load Survey/Block Load Profile(LS/BLP) :
+
+Instantaneous Profile data, also known as Load Profile data, is information sent by a smart meter that captures the real-time electricity consumption of a customer. It provides a detailed view of how electricity is being used at a particular moment and can be used to identify trends and usage patterns over time.
+
+This data typically includes:
+
+Current power consumption: the current amount of electricity being consumed in kilowatt (kW).
+
+Voltage: the current voltage of the electricity supply.
+
+Current: the current flow in amperes (A).
+
+Power Factor: the ratio of real power to apparent power.
+
+This data can be used for a variety of purposes, including demand response programs, billing, and load management. It is usually sent to the Head End System (HES) at regular intervals, where it can be analyzed and processed for various purposes.
+
+
+
+
+Mubasshir Khan
+is this data store in meter memory
+
+Yes, the Instantaneous Profile data collected by a smart meter is usually stored in its internal memory. This memory is designed to store large amounts of data over time, allowing the meter to build up a historical record of electricity usage.
+
+This data can be used to perform various analysis, such as detecting patterns in usage, calculating billing information, and monitoring the power grid. The meter can also be configured to send this data to the Head End System (HES) at regular intervals, where it can be further analyzed and processed.
+
+In some cases, the data may be stored in the meter's memory temporarily and then immediately transmitted to the HES for real-time analysis and processing. The exact configuration will depend on the specific implementation and the requirements of the utility or service provider.
+
+
+
+
+Mubasshir Khan
+ok tell me about Load Profile Data of smart meter
+
+Load Profile Data, also known as Consumption Profile Data, is information collected by a smart meter that reflects the electricity consumption of a customer over a period of time. Unlike Instantaneous Profile Data, which captures real-time consumption data, Load Profile Data captures data over an extended period, usually a day or a week.
+
+Load Profile Data typically includes:
+
+Total energy consumption: the total amount of electricity consumed in kilowatt-hours (kWh) over a specified time period.
+
+Time-of-use data: information on when electricity was consumed, including peak hours, off-peak hours, and shoulder hours.
+
+Consumption patterns: trends and patterns in electricity consumption, including daily, weekly, and monthly patterns.
+
+Billing data: information used to calculate billing, including energy consumption, tariffs, and pricing.
+
+This data can be used for a variety of purposes, including demand response programs, billing, and load management. It is usually stored in the smart meter's internal memory and transmitted to the Head End System (HES) at regular intervals for further analysis and processing.
+
+The exact contents of Load Profile Data may vary depending on the specific implementation and the requirements of the utility or service provider.
