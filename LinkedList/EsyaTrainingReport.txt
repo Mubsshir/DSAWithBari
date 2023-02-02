@@ -28,11 +28,12 @@ Topic 2: What is Aliasing in DB?
     Example: Select Count(Student) AS [Total Student] From Class.
 -> Table Aliasing ->  If a table appears more than once in the FROM clause, you need table aliases in order to keep them distinct.
                       Self joins are common in cases where a table contains a foreign key that references the primary key of the same table.
-                      Some Rules For Table Aliasing
-                      1.Table Aliasing  is use only for internal purpose so It shouldn't cross 4 character
-                      2.Always use Uppercase
-                      3.Avoid Spaces and special character
-                      4.No need use [] in table Aliasing as it will not use any special character or spaces
+                      
+                      Some Rules For Table Aliasing -
+                        1.Table Aliasing  is use only for internal purpose so It shouldn't cross 4 character
+                        2.Always use Uppercase
+                        3.Avoid Spaces and special character
+                        4.No need use [] in table Aliasing as it will not use any special character or spaces
 
 Topic 3: Naming convention in Esyasoft MDM DB Tables.
 | ------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
@@ -94,53 +95,35 @@ Topic 6: Smart Meter Payloads
                                  Voltage: the current voltage of the electricity supply.
                                  Current: the current flow in amperes (A).
                                  Power Factor: the ratio of real power to apparent power.
-                                 
--> Load Survey/Block Load Profile(LS/BLP) :
 
-Instantaneous Profile data, also known as Load Profile data, is information sent by a smart meter that captures the real-time electricity consumption of a customer. It provides a detailed view of how electricity is being used at a particular moment and can be used to identify trends and usage patterns over time.
+-> Load Survey/Block Load Profile(LS/BLP) : The electricity consumption of a customer over a period of time.It generated in Every 15 min.
+                                            This data saves in a meter memory for 45 days.
+                                            It contains following data.                                            
+                                            Total energy consumption: the total amount of electricity consumed in kilowatt-hours (kWh) over a specified time period.
+                                            Time-of-use data: information on when electricity was consumed, including peak hours, off-peak hours, and shoulder hours.
 
-This data typically includes:
+-> Daily Profile / Midnight Profile Data(DP/MIP) :It reflects the electricity consumption of a customer over a 24-hour period. 
+                                                  It provides a detailed view of a customer's daily electricity usage.
+                                                  This data is store in meter memory.
+                                                  Data is generated Everyday at 12:00:00 AM
+-> Billing Profile (BP)  :   This data typically includes the total amount of electricity consumed over a billing period, 
+                             the time-of-use of the electricity, and the applicable tariffs and pricing.
+                             Billing period can be 1 Month or 2 Months.
+                             It includes-
+                              1. Total energy consumption: the total amount of electricity consumed in kilowatt-hours (kWh) over a specified billing period, usually a month.
+                              2. Time-of-use data: information on when electricity was consumed, including peak hours, off-peak hours,TODs.
 
-Current power consumption: the current amount of electricity being consumed in kilowatt (kW).
+-> Event Data : Event Data is information sent by a smart meter that captures specific events or changes in the electricity supply.
+                This data provides a detailed view of the status of the electricity supply and can be used to identify and resolve issues,
+                such as power outages, voltage fluctuations, and tampering.
+                There can be more then 180 events.
+                
+                Types of event-
 
-Voltage: the current voltage of the electricity supply.
+                1. Restorable Event : Power failure,Meter box opening,Earth loading,Communication failures.
+                2. Non-Restorable Event : Hardware failures,change in time,
+                                          Security breaches: If a smart meter is hacked, it may need to be replaced to maintain the security of the grid.
 
-Current: the current flow in amperes (A).
-
-Power Factor: the ratio of real power to apparent power.
-
-This data can be used for a variety of purposes, including demand response programs, billing, and load management. It is usually sent to the Head End System (HES) at regular intervals, where it can be analyzed and processed for various purposes.
-
-
-
-
-Mubasshir Khan
-is this data store in meter memory
-
-Yes, the Instantaneous Profile data collected by a smart meter is usually stored in its internal memory. This memory is designed to store large amounts of data over time, allowing the meter to build up a historical record of electricity usage.
-
-This data can be used to perform various analysis, such as detecting patterns in usage, calculating billing information, and monitoring the power grid. The meter can also be configured to send this data to the Head End System (HES) at regular intervals, where it can be further analyzed and processed.
-
-In some cases, the data may be stored in the meter's memory temporarily and then immediately transmitted to the HES for real-time analysis and processing. The exact configuration will depend on the specific implementation and the requirements of the utility or service provider.
-
-
-
-
-Mubasshir Khan
-ok tell me about Load Profile Data of smart meter
-
-Load Profile Data, also known as Consumption Profile Data, is information collected by a smart meter that reflects the electricity consumption of a customer over a period of time. Unlike Instantaneous Profile Data, which captures real-time consumption data, Load Profile Data captures data over an extended period, usually a day or a week.
-
-Load Profile Data typically includes:
-
-Total energy consumption: the total amount of electricity consumed in kilowatt-hours (kWh) over a specified time period.
-
-Time-of-use data: information on when electricity was consumed, including peak hours, off-peak hours, and shoulder hours.
-
-Consumption patterns: trends and patterns in electricity consumption, including daily, weekly, and monthly patterns.
-
-Billing data: information used to calculate billing, including energy consumption, tariffs, and pricing.
-
-This data can be used for a variety of purposes, including demand response programs, billing, and load management. It is usually stored in the smart meter's internal memory and transmitted to the Head End System (HES) at regular intervals for further analysis and processing.
-
-The exact contents of Load Profile Data may vary depending on the specific implementation and the requirements of the utility or service provider.
+-> To calculate current,voltage and load we take average.
+-> To calculate cousumption we need to take difference of meter reading.
+    For ex. if need to calculate todays consumption,for that we have to Subsrtact Yesterday Reading with  todays Reading.
