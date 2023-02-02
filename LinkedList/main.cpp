@@ -64,7 +64,9 @@ void sortEvenOdd(int arr[], int n)
                 {
                     Swap(&arr[i], &arr[j]);
                 }
+                continue;
             }
+            break;
         }
     }
 }
