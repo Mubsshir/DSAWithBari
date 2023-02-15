@@ -58,6 +58,7 @@ public:
     void TPush(int x);
     void InsertToStart(int x);
     void InsertAt(int pos, int ele);
+    void OptimizeSearch(int key);
 };
 
 void LinkedList::Display()
@@ -212,6 +213,21 @@ void LinkedList::InsertAt(int pos, int ele)
     p->next = node;
 }
 
+void LinkedList::OptimizeSearch(int key){
+    Node *q=nullptr;
+    Node *p=head;
+    while(p){
+        if(p->data==key){
+            q->next=p->next;
+            p->next=head;
+            head=p;
+            break;
+        }
+        q=p;
+        p=p->next;
+    }
+}
+
 // ------------------Non oop code for c only---------------------------------------
 
 int Length(Node *p)
@@ -295,22 +311,4 @@ void FindelemetRec(Node *p, int key)
         return;
     }
     return FindelemetRec(p->next, key);
-}
-
-void OptimizedLinearSerach(Node *p, int dataToFind)
-{
-    Node *first = p;
-    Node *q = NULL;
-    while (p)
-    {
-        if (p->data = dataToFind)
-        {
-            printf("Element found");
-            q = p->next;
-            p->next = first;
-            first = p;
-        }
-        q = p;
-        p = p->next;
-    }
 }
