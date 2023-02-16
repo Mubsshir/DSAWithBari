@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "e:/DSlearning",
-      "program": "e:/DSlearning/build/Debug/outDebug",
+      "cwd": "d:/NodeJS/DSAWithBari/LinkedList",
+      "program": "d:/NodeJS/DSAWithBari/LinkedList/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
