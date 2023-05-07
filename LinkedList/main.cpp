@@ -3,10 +3,16 @@ using namespace std;
 
 int main()
 {
-    int a[6]={1,2,3,10,4,-9};   
-    LinkedList list(a,6);
+    LinkedList list;
+    list.Insert(3);
+    list.Insert(5);
+    list.Insert(15);
     list.Display();
-    list.Insert(6,7);
+    list.InsertSort(16);
+    list.Display();
+    list.Insert(17);
+    list.Display();
+    list.InsertSort(14);
     list.Display();
     return 0;
 }

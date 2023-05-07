@@ -14,15 +14,15 @@ private:
 public:
   LinkedList()
   {
-    head = nullptr;
-    tail = nullptr;
+    head = NULL;
+    tail = NULL;
   }
   LinkedList(int a[], int n)
   {
     Node *temp;
-    head=new Node;
+    head = new Node;
     head->data = a[0];
-    head->next = nullptr;
+    head->next = tail;
     tail = head;
     for (int i = 1; i < n; i++)
     {
@@ -49,7 +49,8 @@ public:
   int FindMin();
   bool Search(int key);
   bool OSearch(int key);
-  void Insert(int element,int positon=-1);
+  void Insert(int element, int positon = -1);
+  void InsertSort(int element);
 };
 
 void LinkedList::Display()
@@ -126,58 +127,103 @@ bool LinkedList::Search(int key)
 bool LinkedList::OSearch(int key)
 {
   Node *p, *q;
-  q = nullptr;
+  q = NULL;
   p = head;
   while (p)
   {
     if (p->data == key)
     {
-      q->next=p->next;
+      if (!q)
+      {
+        printf("\nElement Found\n");
+        return true;
+      }
+      q->next = p->next;
       p->next = head;
-      head=p;
+      head = p;
       printf("\nElement Found\n");
       return true;
     }
-    q=p;
-    p=p->next;
+    q = p;
+    p = p->next;
   }
   printf("\nElement not Found\n");
   return false;
 }
 
-void LinkedList::Insert(int element,int position){
+void LinkedList::Insert(int element, int position)
+{
   Node *temp;
-  temp=new Node;
-  temp->data=element;
-  temp->next=nullptr;
-  if(!head){
-    head=temp;
+  temp = new Node;
+  temp->data = element;
+  temp->next = nullptr;
+  if (!head)
+  {
+    head = temp;
+    head->next = tail;
+    tail = head;
     return;
   }
-  if(position==-1){
-    tail->next=temp;
-    tail=temp;
+  if (position == -1)
+  {
+    tail->next = temp;
+    tail = temp;
     return;
   }
-  else if(position==0){
-    temp->next=head;
-    head=temp;
+  else if (position == 0)
+  {
+    temp->next = head;
+    head = temp;
     return;
   }
-  else{
-    int length=Length();
-    if(position>length+1){
-      printf("position can't be greater than list length");
+  else
+  {
+    int length = Length();
+    if (position > length + 1 || position < -1)
+    {
+      printf("position can't be greater than list length or in minus");
       return;
     }
-    Node *p=head;
-    for(int i=1;i<=length;i++){
-      if(position==i+1){
-        temp->next=p->next;
-        p->next=temp;
+    Node *p = head;
+    for (int i = 1; i <= length; i++)
+    {
+      if (position == i + 1)
+      {
+        temp->next = p->next;
+        p->next = temp;
         return;
       }
-      p=p->next;
+      p = p->next;
     }
   }
+}
+
+void LinkedList::InsertSort(int element)
+{
+  Node *temp, *p, *q;
+  temp = new Node;
+  temp->data = element;
+  temp->next = nullptr;
+  if (!head)
+  {
+    head = temp;
+    head->next = tail;
+    tail = head;
+    return;
+  }
+  p = head;
+  while (p)
+  {
+    if (p->data > element)
+    {
+      temp->next = q->next;
+      q->next = temp;
+      return;
+    }
+    q = p;
+    p = p->next;
+  }
+  printf("\n%d %d\n",q->data,element);
+  tail->next=temp;
+  tail = temp;
 }
