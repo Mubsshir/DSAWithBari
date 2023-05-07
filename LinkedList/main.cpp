@@ -1,12 +1,12 @@
 #include "linked.hpp"
+using namespace std;
 
-int main(){
-   LinkedList list;
-   list.Push(1);
-   list.Push(2);
-   list.Push(4);
-   list.Display();
-   list.OptimizeSearch(2);
-   list.Display();
+int main()
+{
+    int a[6]={1,2,3,10,4,-9};   
+    LinkedList list(a,6);
+    list.Display();
+    list.Insert(6,7);
+    list.Display();
     return 0;
 }
