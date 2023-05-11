@@ -7,12 +7,10 @@ int main()
     list.Insert(3);
     list.Insert(5);
     list.Insert(15);
-    list.Display();
-    list.InsertSort(16);
-    list.Display();
     list.Insert(17);
     list.Display();
-    list.InsertSort(14);
+    list.Delete(4);
+    list.Insert(43,-1);
     list.Display();
     return 0;
 }

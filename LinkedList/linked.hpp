@@ -51,6 +51,7 @@ public:
   bool OSearch(int key);
   void Insert(int element, int positon = -1);
   void InsertSort(int element);
+  void Delete(int pos);
 };
 
 void LinkedList::Display()
@@ -200,7 +201,7 @@ void LinkedList::Insert(int element, int position)
 
 void LinkedList::InsertSort(int element)
 {
-  Node *temp, *p, *q;
+  Node *temp, *p, *q = nullptr;
   temp = new Node;
   temp->data = element;
   temp->next = nullptr;
@@ -216,6 +217,12 @@ void LinkedList::InsertSort(int element)
   {
     if (p->data > element)
     {
+      if (!q)
+      {
+        temp->next = head;
+        head = temp;
+        return;
+      }
       temp->next = q->next;
       q->next = temp;
       return;
@@ -223,7 +230,43 @@ void LinkedList::InsertSort(int element)
     q = p;
     p = p->next;
   }
-  printf("\n%d %d\n",q->data,element);
-  tail->next=temp;
+  printf("\n%d %d\n", q->data, element);
+  tail->next = temp;
   tail = temp;
+}
+
+void LinkedList::Delete(int pos = 1)
+{
+  Node *p;
+  p = head;
+  if (pos == 1)
+  {
+    head = head->next;
+    delete p;
+    return;
+  }
+  Node *q = nullptr;
+  int len = Length();
+  if (pos > len)
+  {
+    printf("Position is greater than list length");
+    return;
+  }
+  for (int i = 0; i < pos; i++)
+  {
+    if(i==len-1){
+      q->next=nullptr;
+      tail=q;
+      delete p;
+      return;
+    }
+    if (i == pos - 1)
+    {
+      q->next = p->next;
+      delete p;
+      return;
+    }
+    q = p;
+    p = p->next;
+  }
 }
