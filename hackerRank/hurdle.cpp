@@ -7,14 +7,13 @@ int main()
   int hurdlesCount = nums.size();
    while (i < hurdlesCount)
   {
-    jumpsTo = (jumpsTo == 0) ? nums[i] : jumpsTo + nums[i];
+    jumpsTo +=nums[i];
 
-    if (jumpsTo >= hurdlesCount)
+    if (jumpsTo >=hurdlesCount-1)
     {
       count++;
       break;
     }
-
     if (nums[jumpsTo] == 0)
     {
       count = -1;
