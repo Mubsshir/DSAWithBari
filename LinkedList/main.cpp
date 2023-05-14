@@ -6,11 +6,15 @@ int main()
     LinkedList list;
     list.Insert(3);
     list.Insert(5);
-    list.Insert(15);
+    list.Insert(7);
+    list.Insert(7);
+    list.Insert(7);
+    list.Insert(17);
     list.Insert(17);
     list.Display();
-    list.Delete(4);
-    list.Insert(43,-1);
+    list.RemoveDuplicates();
+    list.Display();
+    list.Reverse();
     list.Display();
     return 0;
 }

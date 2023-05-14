@@ -60,8 +60,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "e:/DSlearning/DSAWithBari/LinkedList",
-      "program": "${workspaceFolder}/main",
+      "cwd": "e:/DSlearning/DSAWithBari",
+      "program": "e:/DSlearning/DSAWithBari/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

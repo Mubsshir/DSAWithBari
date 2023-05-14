@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include <vector>
 class Node
 {
 public:
@@ -33,6 +33,9 @@ public:
       tail = temp;
     }
   }
+  Node* getHead(){
+    return head;
+  }
   ~LinkedList()
   {
     Node *temp = head;
@@ -52,6 +55,11 @@ public:
   void Insert(int element, int positon = -1);
   void InsertSort(int element);
   void Delete(int pos);
+  bool IsSorted();
+  void RemoveDuplicates();
+  void ReverseListElement();
+  void ReverseListLink();
+  void Reverse(Node *p,Node *q);
 };
 
 void LinkedList::Display()
@@ -254,9 +262,10 @@ void LinkedList::Delete(int pos = 1)
   }
   for (int i = 0; i < pos; i++)
   {
-    if(i==len-1){
-      q->next=nullptr;
-      tail=q;
+    if (i == len - 1)
+    {
+      q->next = nullptr;
+      tail = q;
       delete p;
       return;
     }
@@ -269,4 +278,85 @@ void LinkedList::Delete(int pos = 1)
     q = p;
     p = p->next;
   }
+}
+
+bool LinkedList::IsSorted()
+{
+  int x = INT_MIN;
+  // walker
+  Node *p;
+  p = head;
+  while (p)
+  {
+    if (p->data < x)
+    {
+      return false;
+    }
+    x = p->data;
+    p = p->next;
+  }
+  return true;
+}
+
+void LinkedList::RemoveDuplicates()
+{
+  Node *p, *q;
+  p = head;
+  q = p->next;
+  while (q)
+  {
+    if (p->data == q->data)
+    {
+      p->next = q->next;
+      delete q;
+      q = new Node;
+      q = p->next;
+      continue;
+    }
+    p = q;
+    q = q->next;
+  }
+  tail = p;
+}
+
+void LinkedList::ReverseListElement()
+{
+  Node *p;
+  std::vector<int> auxArray;
+  p = head;
+  for (int i = 0; p; i++)
+  {
+    auxArray.push_back(p->data);
+    p = p->next;
+  }
+  p = head;
+  for (int i = auxArray.size() - 1; p; i--)
+  {
+    p->data = auxArray[i];
+    p = p->next;
+  }
+}
+
+void LinkedList::ReverseListLink()
+{
+  Node *p, *q, *r;
+  p = head;
+  q, r = nullptr;
+  while (p)
+  {
+    r = q;
+    q = p;
+    p = p->next;
+    q->next = r;
+  }
+  tail =head;
+  head=q;
+  printf("\n %d \n", head->data);
+}
+void LinkedList::Reverse(Node *p=LinkedList::getHead(),Node *q=nullptr){
+  if(p){
+    Reverse(p,p->next);
+    p->next=q;
+  }else{head=q;}
+  
 }
