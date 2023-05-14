@@ -14,7 +14,8 @@ int main()
     list.Display();
     list.RemoveDuplicates();
     list.Display();
-    list.Reverse();
+    list.Reverse(list.getHead());
+    printf("\n %d \n",list.getTail()->data);
     list.Display();
     return 0;
 }

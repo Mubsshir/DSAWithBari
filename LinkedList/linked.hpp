@@ -30,11 +30,15 @@ public:
       temp->data = a[i];
       temp->next = nullptr;
       tail->next = temp;
-      tail = temp;
+      tail = temp;printf("\n %d \n",tail->data);
     }
   }
-  Node* getHead(){
+  Node *getHead()
+  {
     return head;
+  }
+  Node *getTail(){
+    return tail;
   }
   ~LinkedList()
   {
@@ -59,11 +63,15 @@ public:
   void RemoveDuplicates();
   void ReverseListElement();
   void ReverseListLink();
-  void Reverse(Node *p,Node *q);
+  void Reverse(Node *p, Node *q);
 };
 
+/// This method Print the Linked List to screen
+///
+///
+/// \return void 
 void LinkedList::Display()
-{
+{ 
   Node *p = head;
   while (p)
   {
@@ -73,6 +81,10 @@ void LinkedList::Display()
   printf("\n");
 }
 
+/// This method return the size of  the Linked List
+///
+///
+/// \return integer
 int LinkedList::Length()
 {
   int count = 0;
@@ -84,7 +96,10 @@ int LinkedList::Length()
   }
   return count;
 }
-
+/// This method return the maximum int present in list
+///
+///
+/// \return integer
 int LinkedList::FindMax()
 {
   int max = INT_MIN;
@@ -100,7 +115,10 @@ int LinkedList::FindMax()
   }
   return max;
 }
-
+/// This method return the minimum int present in list
+///
+///
+/// \return integer
 int LinkedList::FindMin()
 {
   int min = INT_MAX;
@@ -117,6 +135,10 @@ int LinkedList::FindMin()
   return min;
 }
 
+/// This method return the maximum int present in list
+///
+///\param key "element you want to search"
+/// \return integer
 bool LinkedList::Search(int key)
 {
   Node *p = head;
@@ -132,7 +154,10 @@ bool LinkedList::Search(int key)
   printf("\nElement not Found");
   return false;
 }
-
+/// This method search for passed element and if the integer is find then it make the found element as head element
+///so next time if we search the same element it will be fetched fast
+///\param key "element you want to search"
+/// \return integer
 bool LinkedList::OSearch(int key)
 {
   Node *p, *q;
@@ -349,14 +374,22 @@ void LinkedList::ReverseListLink()
     p = p->next;
     q->next = r;
   }
-  tail =head;
-  head=q;
+  tail = head;
+  head = q;
   printf("\n %d \n", head->data);
 }
-void LinkedList::Reverse(Node *p=LinkedList::getHead(),Node *q=nullptr){
-  if(p){
-    Reverse(p,p->next);
-    p->next=q;
-  }else{head=q;}
-  
+void LinkedList::Reverse(Node *p , Node *q = nullptr)
+{
+  if (p)
+  {
+    Reverse(p->next, p);
+    p->next = q;
+    if(p->next==nullptr){
+      tail=p;
+    }
+  }
+  else
+  {
+    head = q;
+  }
 }
