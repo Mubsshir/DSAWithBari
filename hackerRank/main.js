@@ -1,17 +1,27 @@
-const countJumps = (track) => {
-  let i = (jumpsTo = count = 0);
-  let trackLength = track.length;
-  while (i < trackLength) {
-    jumpsTo += track[i];
-    if (jumpsTo >= trackLength - 1) {
+
+let a = [2, 3, 1, 0, 4];
+const countJumps = (nums) => {
+  let i = jumpsTo = count = 0;
+
+  let numsLength = nums.length;
+
+  while (i < numsLength) {
+    if(nums[i]<nums[i+1]){
+      count++;
+      continue;
+    }
+    else{
+      jumpsTo += nums[i];
+    }
+    if (jumpsTo >= numsLength - 1) {
       count++;
       break;
     }
-    if (track[jumpsTo] === 0) {
+    if (nums[jumpsTo] === 0) {
       count = -1;
       break;
     }
-    if (jumpsTo < trackLength) {
+    if (jumpsTo < numsLength) {
       count++;
       i = jumpsTo;
       continue;
