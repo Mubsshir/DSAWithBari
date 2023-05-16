@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+
+using namespace std;
 class Node
 {
 public:
@@ -30,14 +32,15 @@ public:
       temp->data = a[i];
       temp->next = nullptr;
       tail->next = temp;
-      tail = temp;printf("\n %d \n",tail->data);
+      tail = temp;
     }
   }
   Node *getHead()
   {
     return head;
   }
-  Node *getTail(){
+  Node *getTail()
+  {
     return tail;
   }
   ~LinkedList()
@@ -64,14 +67,34 @@ public:
   void ReverseListElement();
   void ReverseListLink();
   void Reverse(Node *p, Node *q);
+  void AddList(LinkedList *list);
+  Node* Merge(LinkedList *list);
+  bool IsLoop();
 };
+
+
+/// This method print the whole linked list
+///
+///\param Starting_Node  "start node from where you want to start printing"
+/// \return void
+
+void Printl(Node* headNode){
+  Node* p=headNode;
+  while (p)
+  {
+    printf("%d ",p->data);
+    p=p->next;
+  }
+  std::cout<<endl;
+}
+
 
 /// This method Print the Linked List to screen
 ///
 ///
-/// \return void 
+/// \return void
 void LinkedList::Display()
-{ 
+{
   Node *p = head;
   while (p)
   {
@@ -80,6 +103,7 @@ void LinkedList::Display()
   }
   printf("\n");
 }
+
 
 /// This method return the size of  the Linked List
 ///
@@ -155,7 +179,7 @@ bool LinkedList::Search(int key)
   return false;
 }
 /// This method search for passed element and if the integer is find then it make the found element as head element
-///so next time if we search the same element it will be fetched fast
+/// so next time if we search the same element it will be fetched fast
 ///\param key "element you want to search"
 /// \return integer
 bool LinkedList::OSearch(int key)
@@ -378,18 +402,90 @@ void LinkedList::ReverseListLink()
   head = q;
   printf("\n %d \n", head->data);
 }
-void LinkedList::Reverse(Node *p , Node *q = nullptr)
+void LinkedList::Reverse(Node *p, Node *q = nullptr)
 {
   if (p)
   {
     Reverse(p->next, p);
     p->next = q;
-    if(p->next==nullptr){
-      tail=p;
+    if (p->next == nullptr)
+    {
+      tail = p;
     }
   }
   else
   {
     head = q;
   }
+}
+/// Attach list to your list
+///
+///\param list "Linked List you want to add in exitsting list"
+/// \return void
+void LinkedList::AddList(LinkedList *list)
+{
+  tail->next = list->getHead();
+  tail = list->getTail();
+  list->head = NULL;
+}
+
+Node* LinkedList::Merge(LinkedList *list)
+{
+  Node *first, *second, *third, *last;
+  first = head;
+  second = list->getHead();
+  if (first->data < second->data)
+  {
+    last = third = first;
+    first = first->next;
+    third->next = NULL;
+  }
+  else
+  {
+    third = last = second;
+    second = second->next;
+    third->next = NULL;
+  }
+  while (first && last)
+  {
+    if (first->data < second->data)
+    {
+      last->next = first;
+      last = first;
+      first = first->next;
+      last->next = NULL;
+    }
+    else if (first->data > second->data)
+    {
+      last->next = second;
+      last = second;
+      second = second->next;
+      last->next = NULL;
+    }
+    else
+    {
+      first = first->next;
+      second = second->next;
+    }
+  }
+  if (first)
+  {
+    last->next = first;
+  }
+  if (second)
+  {
+    last->next = second; 
+  }
+  return third;
+}
+
+bool IsLoop(Node *head){
+  Node *p,*q;
+  p=q=head;
+  do{
+    p=p->next;
+    q=q->next;
+    q=q!=NULL?q->next:NULL;
+  }while (p&&q&& p!=q);
+  return p==q?true:false;  
 }

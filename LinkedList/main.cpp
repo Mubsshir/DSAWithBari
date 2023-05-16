@@ -1,21 +1,25 @@
 #include "linked.hpp"
 using namespace std;
 
+void Hell(LinkedList *hello){
+    hello->Display();
+}
 int main()
 {
-    LinkedList list;
-    list.Insert(3);
-    list.Insert(5);
-    list.Insert(7);
-    list.Insert(7);
-    list.Insert(7);
-    list.Insert(17);
-    list.Insert(17);
-    list.Display();
-    list.RemoveDuplicates();
-    list.Display();
-    list.Reverse(list.getHead());
-    printf("\n %d \n",list.getTail()->data);
-    list.Display();
+    Node *p,*q,*r,*s;
+    p=new Node;
+    q=new Node;
+    r=new Node;
+    s=new Node;
+    p->data=3;
+    p->next=q;
+    q->data=4;
+    q->next=r;
+    r->data=5;
+    r->next=s;
+    s->data=22;
+    s->next=NULL;
+    bool loop=IsLoop(p);
+    cout<<loop;
     return 0;
 }
