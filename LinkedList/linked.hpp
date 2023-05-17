@@ -12,6 +12,7 @@ class LinkedList
 {
 private:
   Node *head, *tail;
+  bool isLinear = true;
 
 public:
   LinkedList()
@@ -19,7 +20,8 @@ public:
     head = NULL;
     tail = NULL;
   }
-  LinkedList(int a[], int n)
+  
+  LinkedList(int a[], int n, bool isLinear = true)
   {
     Node *temp;
     head = new Node;
@@ -33,6 +35,11 @@ public:
       temp->next = nullptr;
       tail->next = temp;
       tail = temp;
+    }
+    if (!isLinear)
+    {
+      tail->next = head;
+      this->isLinear = false;
     }
   }
   Node *getHead()
@@ -68,26 +75,25 @@ public:
   void ReverseListLink();
   void Reverse(Node *p, Node *q);
   void AddList(LinkedList *list);
-  Node* Merge(LinkedList *list);
+  Node *Merge(LinkedList *list);
   bool IsLoop();
 };
-
 
 /// This method print the whole linked list
 ///
 ///\param Starting_Node  "start node from where you want to start printing"
 /// \return void
 
-void Printl(Node* headNode){
-  Node* p=headNode;
+void Printl(Node *headNode)
+{
+  Node *p = headNode;
   while (p)
   {
-    printf("%d ",p->data);
-    p=p->next;
+    printf("%d ", p->data);
+    p = p->next;
   }
-  std::cout<<endl;
+  std::cout << endl;
 }
-
 
 /// This method Print the Linked List to screen
 ///
@@ -100,10 +106,12 @@ void LinkedList::Display()
   {
     printf("%d ", p->data);
     p = p->next;
+    if(!isLinear && p==head){
+      break;
+    }
   }
   printf("\n");
 }
-
 
 /// This method return the size of  the Linked List
 ///
@@ -429,7 +437,7 @@ void LinkedList::AddList(LinkedList *list)
   list->head = NULL;
 }
 
-Node* LinkedList::Merge(LinkedList *list)
+Node *LinkedList::Merge(LinkedList *list)
 {
   Node *first, *second, *third, *last;
   first = head;
@@ -474,18 +482,20 @@ Node* LinkedList::Merge(LinkedList *list)
   }
   if (second)
   {
-    last->next = second; 
+    last->next = second;
   }
   return third;
 }
 
-bool IsLoop(Node *head){
-  Node *p,*q;
-  p=q=head;
-  do{
-    p=p->next;
-    q=q->next;
-    q=q!=NULL?q->next:NULL;
-  }while (p&&q&& p!=q);
-  return p==q?true:false;  
+bool IsLoop(Node *head)
+{
+  Node *p, *q;
+  p = q = head;
+  do
+  {
+    p = p->next;
+    q = q->next;
+    q = q != NULL ? q->next : NULL;
+  } while (p && q && p != q);
+  return p == q ? true : false;
 }
