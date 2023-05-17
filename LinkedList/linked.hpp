@@ -15,12 +15,15 @@ private:
   bool isLinear = true;
 
 public:
-  LinkedList()
+  LinkedList(bool isLinear=true)
   {
     head = NULL;
     tail = NULL;
+    if(!isLinear){
+      this->isLinear=false;
+    }
   }
-  
+
   LinkedList(int a[], int n, bool isLinear = true)
   {
     Node *temp;
@@ -106,7 +109,8 @@ void LinkedList::Display()
   {
     printf("%d ", p->data);
     p = p->next;
-    if(!isLinear && p==head){
+    if (!isLinear && p == head)
+    {
       break;
     }
   }
@@ -125,6 +129,10 @@ int LinkedList::Length()
   {
     count++;
     p = p->next;
+    if (p == head && !isLinear)
+    {
+      break;
+    }
   }
   return count;
 }
@@ -144,6 +152,10 @@ int LinkedList::FindMax()
       max = p->data;
     }
     p = p->next;
+    if (p == head && !isLinear)
+    {
+      break;
+    }
   }
   return max;
 }
@@ -163,6 +175,10 @@ int LinkedList::FindMin()
       min = p->data;
     }
     p = p->next;
+    if (p == head && !isLinear)
+    {
+      break;
+    }
   }
   return min;
 }
@@ -182,6 +198,10 @@ bool LinkedList::Search(int key)
       return true;
     }
     p = p->next;
+    if (p == head && !isLinear)
+    {
+      break;
+    }
   }
   printf("\nElement not Found");
   return false;
@@ -212,6 +232,10 @@ bool LinkedList::OSearch(int key)
     }
     q = p;
     p = p->next;
+    if (p == head && !isLinear)
+    {
+      break;
+    }
   }
   printf("\nElement not Found\n");
   return false;
@@ -226,7 +250,9 @@ void LinkedList::Insert(int element, int position)
   if (!head)
   {
     head = temp;
-    head->next = tail;
+    if(!isLinear){
+      head->next=head;
+    }
     tail = head;
     return;
   }
@@ -234,10 +260,16 @@ void LinkedList::Insert(int element, int position)
   {
     tail->next = temp;
     tail = temp;
+    if(!isLinear){
+      tail->next=head;
+    }
     return;
   }
   else if (position == 0)
   {
+    if(!isLinear){
+      tail->next=temp;
+    }
     temp->next = head;
     head = temp;
     return;
@@ -260,6 +292,10 @@ void LinkedList::Insert(int element, int position)
         return;
       }
       p = p->next;
+      if (p == head && !isLinear)
+      {
+        break;
+      }
     }
   }
 }
@@ -294,6 +330,10 @@ void LinkedList::InsertSort(int element)
     }
     q = p;
     p = p->next;
+    if (p == head && !isLinear)
+    {
+      break;
+    }
   }
   printf("\n%d %d\n", q->data, element);
   tail->next = temp;
@@ -307,6 +347,9 @@ void LinkedList::Delete(int pos = 1)
   if (pos == 1)
   {
     head = head->next;
+    if(!isLinear){
+      tail->next=head;
+    }
     delete p;
     return;
   }
@@ -319,9 +362,9 @@ void LinkedList::Delete(int pos = 1)
   }
   for (int i = 0; i < pos; i++)
   {
-    if (i == len - 1)
+    if (i+1 == len )
     {
-      q->next = nullptr;
+      q->next= !isLinear?head: NULL;
       tail = q;
       delete p;
       return;
@@ -334,6 +377,10 @@ void LinkedList::Delete(int pos = 1)
     }
     q = p;
     p = p->next;
+    if (p == head && !isLinear)
+    {
+      break;
+    }
   }
 }
 
@@ -351,6 +398,10 @@ bool LinkedList::IsSorted()
     }
     x = p->data;
     p = p->next;
+    if (p == head && !isLinear)
+    {
+      break;
+    }
   }
   return true;
 }
@@ -372,6 +423,10 @@ void LinkedList::RemoveDuplicates()
     }
     p = q;
     q = q->next;
+    if (q == head && !isLinear)
+    {
+      break;
+    }
   }
   tail = p;
 }
@@ -385,12 +440,20 @@ void LinkedList::ReverseListElement()
   {
     auxArray.push_back(p->data);
     p = p->next;
+    if (p == head && !isLinear)
+    {
+      break;
+    }
   }
   p = head;
   for (int i = auxArray.size() - 1; p; i--)
   {
     p->data = auxArray[i];
     p = p->next;
+    if (p == head && !isLinear)
+    {
+      break;
+    }
   }
 }
 
@@ -404,6 +467,10 @@ void LinkedList::ReverseListLink()
     r = q;
     q = p;
     p = p->next;
+    if (p == head && !isLinear)
+    {
+      break;
+    }
     q->next = r;
   }
   tail = head;
@@ -414,6 +481,10 @@ void LinkedList::Reverse(Node *p, Node *q = nullptr)
 {
   if (p)
   {
+    if (p == head && !isLinear)
+    {
+      return;
+    }
     Reverse(p->next, p);
     p->next = q;
     if (p->next == nullptr)
@@ -435,6 +506,10 @@ void LinkedList::AddList(LinkedList *list)
   tail->next = list->getHead();
   tail = list->getTail();
   list->head = NULL;
+  if (!isLinear)
+    {
+      tail->next=head;
+    }
 }
 
 Node *LinkedList::Merge(LinkedList *list)
