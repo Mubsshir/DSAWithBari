@@ -97,41 +97,44 @@ public:
   }
   DoublyLinkedList(int a[], int n)
   {
-     if (n <= 0) {
-            return;
-        }
+    if (n <= 0)
+    {
+      return;
+    }
+    head = new Node;
+    head->data = a[0];
+    head->prev = nullptr;
+    head->next = nullptr;
+    tail = head;
 
-        head = new Node;
-        head->data = a[0];
-        head->prev = nullptr;
-        head->next = nullptr;
-        tail = head;
-
-        for (int i = 1; i < n; i++) {
-            Node* temp = new Node;
-            temp->data = a[i];
-            temp->prev = tail;
-            temp->next = nullptr;
-            tail->next = temp;
-            tail = temp;
-        }
+    for (int i = 1; i < n; i++)
+    {
+      Node *temp = new Node;
+      temp->data = a[i];
+      temp->prev = tail;
+      temp->next = nullptr;
+      tail->next = temp;
+      tail = temp;
+    }
   }
-  ~DoublyLinkedList(){
-    Node *p=head;
-    while(p){
-      head=head->next;
+  ~DoublyLinkedList()
+  {
+    Node *p = head;
+    while (p)
+    {
+      head = head->next;
       delete p;
-      p=head;
+      p = head;
     }
   }
   void Display();
-  void Insert(int element, int pos=-1);
+  void Insert(int element, int pos = -1);
   int Length();
-  int* popBack();
-  int* popFront();
-  int* pop(int pos=-1);
+  int *popBack();
+  int *popFront();
+  int *pop(int pos = -1);
+  void Reverse();
 };
-
 
 /// This method print the whole linked list
 ///
@@ -630,123 +633,157 @@ bool IsLoop(Node *head)
   return p == q ? true : false;
 }
 
-
-void DoublyLinkedList::Display(){
-  Node *p=head;
-  while(p){
-    printf(" %d ",p->data);
-    p=p->next;
+void DoublyLinkedList::Display()
+{
+  Node *p = head;
+  while (p)
+  {
+    printf(" %d ", p->data);
+    p = p->next;
   }
-  cout<<endl;
+  cout << endl;
 }
 
-int DoublyLinkedList::Length(){
-  int count=0;
-  Node *p=head;
-  while(p){
+int DoublyLinkedList::Length()
+{
+  int count = 0;
+  Node *p = head;
+  while (p)
+  {
     count++;
-    p=p->next;
+    p = p->next;
   }
   return count;
 }
-void DoublyLinkedList::Insert(int element,int pos){
-  if(!head){
-    head=new Node;
-    head->prev=nullptr;
-    head->next=nullptr;
-    head->data=element;
-    tail=head;
+void DoublyLinkedList::Insert(int element, int pos)
+{
+  if (!head)
+  {
+    head = new Node;
+    head->prev = nullptr;
+    head->next = nullptr;
+    head->data = element;
+    tail = head;
     return;
   }
-  Node *temp=new Node;
-  int size=Length();
-  if(pos==1){
-    temp->prev=nullptr;
-    temp->data=element;
-    temp->next=head;
-    head=temp;
+  Node *temp = new Node;
+  int size = Length();
+  if (pos == 1)
+  {
+    temp->prev = nullptr;
+    temp->data = element;
+    temp->next = head;
+    head = temp;
     return;
   }
-  if(pos==-1 || pos==size+1){
-    temp->next=NULL;
-    temp->prev=tail;;
-    temp->data=element;
-    tail->next=temp;
-    tail=temp;
+  if (pos == -1 || pos == size + 1)
+  {
+    temp->next = NULL;
+    temp->prev = tail;
+    ;
+    temp->data = element;
+    tail->next = temp;
+    tail = temp;
     return;
   }
-  if(pos>size){
-    cout<<"given position is  invalid"<<endl;
+  if (pos > size)
+  {
+    cout << "given position is  invalid" << endl;
     return;
   }
-  Node *p,*q;
-  p=head;
-  q=nullptr;
-  for(int i=0;p;i++){
-    if(i==pos-1){
-      temp->prev=q;
-      temp->next=p;
-      temp->data=element;
-      p->prev=temp;
-      q->next=temp;
+  Node *p, *q;
+  p = head;
+  q = nullptr;
+  for (int i = 0; p; i++)
+  {
+    if (i == pos - 1)
+    {
+      temp->prev = q;
+      temp->next = p;
+      temp->data = element;
+      p->prev = temp;
+      q->next = temp;
       return;
     }
-    q=p;
-    p=p->next;
+    q = p;
+    p = p->next;
   }
 }
 
-int* DoublyLinkedList::popFront(){
-  if(!head){
+int *DoublyLinkedList::popFront()
+{
+  if (!head)
+  {
     return nullptr;
   }
   Node *temp;
-  temp=head;
-  head=head->next;
-  head->prev=nullptr;
-  int* x=new int(temp->data);
+  temp = head;
+  head = head->next;
+  head->prev = nullptr;
+  int *x = new int(temp->data);
   delete temp;
   return x;
 }
 
-int* DoublyLinkedList::popBack(){
-  if(!tail){
+int *DoublyLinkedList::popBack()
+{
+  if (!tail)
+  {
     return nullptr;
   }
   Node *temp;
-  temp=tail;
-  tail=tail->prev;
-  tail->next=nullptr;
-  int* x =new int(temp->data);
+  temp = tail;
+  tail = tail->prev;
+  tail->next = nullptr;
+  int *x = new int(temp->data);
   delete temp;
   return x;
 }
 
-int* DoublyLinkedList::pop(int pos){
-  int size=Length();
-  if(pos==1){
+int *DoublyLinkedList::pop(int pos)
+{
+  int size = Length();
+  if (pos == 1)
+  {
     return popFront();
   }
-  if(pos==-1 or pos==size){
+  if (pos == -1 or pos == size)
+  {
     return popBack();
   }
-  if(size<pos){
-    cout<<"No node present in this location."<<endl;
+  if (size < pos)
+  {
+    cout << "No node present in this location." << endl;
     return nullptr;
   }
-  Node *p,*q;
-  p=head;
-  q=nullptr;
-  for(int i=0;p;i++){
-    if(i==pos-1){
-      q->next=p->next;
-      p->next->prev=q;
-      int *x=new int(p->data);
+  Node *p, *q;
+  p = head;
+  q = nullptr;
+  for (int i = 0; p; i++)
+  {
+    if (i == pos - 1)
+    {
+      q->next = p->next;
+      p->next->prev = q;
+      int *x = new int(p->data);
       delete p;
       return x;
     }
-    q=p;
-    p=p->next;
+    q = p;
+    p = p->next;
   }
   return nullptr;
+}
+
+void DoublyLinkedList::Reverse(){
+  Node *temp,*p;
+  temp=p=head;
+  head=tail;
+  tail=temp;
+  while(p){
+    temp=p->prev;
+    p->prev=p->next;
+    p->next=temp;
+    p=p->prev;
+  }
 }
