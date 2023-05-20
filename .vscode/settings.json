@@ -31,7 +31,9 @@
   "files.associations": {
     "string_view": "cpp",
     "iostream": "cpp",
-    "new": "cpp"
+    "new": "cpp",
+    "array": "cpp",
+    "string": "cpp"
   },
   "C_Cpp_Runner.useAddressSanitizer": false,
   "C_Cpp_Runner.showCompilationTime": false
