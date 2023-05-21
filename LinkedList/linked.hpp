@@ -63,6 +63,10 @@ public:
       head = head->next;
       delete temp;
       temp = head;
+      if(temp==tail){
+        delete temp;
+        break;
+      }
     }
   }
   void Display();
@@ -88,14 +92,16 @@ class DoublyLinkedList
 {
 private:
   Node *head, *tail;
+  bool isLinear = true;
 
 public:
-  DoublyLinkedList()
+  DoublyLinkedList(bool isLinear = true)
   {
     head = NULL;
     tail = NULL;
+    this->isLinear = isLinear;
   }
-  DoublyLinkedList(int a[], int n)
+  DoublyLinkedList(int a[], int n, bool isLinear = true)
   {
     if (n <= 0)
     {
@@ -116,6 +122,12 @@ public:
       tail->next = temp;
       tail = temp;
     }
+    if (!isLinear)
+    {
+      this->isLinear = isLinear;
+      head->prev = tail;
+      tail->next = head;
+    }
   }
   ~DoublyLinkedList()
   {
@@ -125,6 +137,10 @@ public:
       head = head->next;
       delete p;
       p = head;
+      if(p==tail){
+        delete p;
+        break;
+      }
     }
   }
   void Display();
@@ -640,8 +656,13 @@ void DoublyLinkedList::Display()
   {
     printf(" %d ", p->data);
     p = p->next;
+    if (p == head && !isLinear)
+    {
+      break;
+    }
   }
   cout << endl;
+  return;
 }
 
 int DoublyLinkedList::Length()
@@ -652,6 +673,10 @@ int DoublyLinkedList::Length()
   {
     count++;
     p = p->next;
+    if (p == head && !isLinear)
+    {
+      break;
+    }
   }
   return count;
 }
@@ -660,8 +685,8 @@ void DoublyLinkedList::Insert(int element, int pos)
   if (!head)
   {
     head = new Node;
-    head->prev = nullptr;
-    head->next = nullptr;
+    head->prev = !isLinear ? tail : nullptr;
+    head->next = !isLinear ? tail : nullptr;
     head->data = element;
     tail = head;
     return;
@@ -670,17 +695,19 @@ void DoublyLinkedList::Insert(int element, int pos)
   int size = Length();
   if (pos == 1)
   {
-    temp->prev = nullptr;
+    temp->prev = !isLinear ? tail : nullptr;
     temp->data = element;
     temp->next = head;
+    if(!isLinear){
+      tail->next=temp;
+    }
     head = temp;
     return;
   }
   if (pos == -1 || pos == size + 1)
   {
-    temp->next = NULL;
+    temp->next = !isLinear?head: nullptr;
     temp->prev = tail;
-    ;
     temp->data = element;
     tail->next = temp;
     tail = temp;
@@ -719,7 +746,8 @@ int *DoublyLinkedList::popFront()
   Node *temp;
   temp = head;
   head = head->next;
-  head->prev = nullptr;
+  head->prev = !isLinear?tail: nullptr;
+  tail->next=!isLinear?head: nullptr;
   int *x = new int(temp->data);
   delete temp;
   return x;
@@ -734,7 +762,7 @@ int *DoublyLinkedList::popBack()
   Node *temp;
   temp = tail;
   tail = tail->prev;
-  tail->next = nullptr;
+  tail->next = !isLinear?head: nullptr;;
   int *x = new int(temp->data);
   delete temp;
   return x;
@@ -775,15 +803,21 @@ int *DoublyLinkedList::pop(int pos)
   return nullptr;
 }
 
-void DoublyLinkedList::Reverse(){
-  Node *temp,*p;
-  temp=p=head;
-  head=tail;
-  tail=temp;
-  while(p){
-    temp=p->prev;
-    p->prev=p->next;
-    p->next=temp;
-    p=p->prev;
+void DoublyLinkedList::Reverse()
+{
+  Node *temp, *p;
+  temp = p = head;
+  head = tail;
+  tail = temp;
+  while (p)
+  {
+    temp = p->prev;
+    p->prev = p->next;
+    p->next = temp;
+    p = p->prev;
+    if (!isLinear && p == tail)
+    {
+      break;
+    }
   }
 }

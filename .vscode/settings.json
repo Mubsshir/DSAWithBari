@@ -33,7 +33,8 @@
     "iostream": "cpp",
     "new": "cpp",
     "array": "cpp",
-    "string": "cpp"
+    "string": "cpp",
+    "ostream": "cpp"
   },
   "C_Cpp_Runner.useAddressSanitizer": false,
   "C_Cpp_Runner.showCompilationTime": false
