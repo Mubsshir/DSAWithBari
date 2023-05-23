@@ -34,5 +34,6 @@
     "new": "cpp"
   },
   "C_Cpp_Runner.useAddressSanitizer": false,
-  "C_Cpp_Runner.showCompilationTime": false
+  "C_Cpp_Runner.showCompilationTime": false,
+  "C_Cpp.default.compilerPath": "D:\\Mingw\\bin\\cpp.exe"
 }

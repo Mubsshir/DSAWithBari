@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<SOAP-ENV:Body>
+<ns2:transferSGMeterReadingToSAPResponse xmlns:ns2="http://hpsebl.in/smartgrid/">
+<return>N</return>
+</ns2:transferSGMeterReadingToSAPResponse>
+</SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
