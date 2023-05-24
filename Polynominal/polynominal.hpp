@@ -6,8 +6,32 @@ struct Term
 {
     int cofficient;
     int exponent;
+    Term *next;
 };
 
+class LinkedPoly{
+    private:
+        Term* head;
+        Term* tail;
+    public:
+    LinkedPoly(){
+        head=NULL;
+        tail=NULL;        
+    };
+    ~LinkedPoly(){
+        Term *p;
+        p=head;
+        while(p){
+            head=head->next;
+            delete p;
+            p=head;
+        }
+    }
+    void InsertTerm(int coffi,int expo);
+    void DisplayExpression();
+    float SolveExpression(int valueOfx);
+
+};
 class Polynomial
 {
 private:
@@ -99,4 +123,54 @@ Polynomial Polynomial ::AddPolynomial(Polynomial p, Polynomial q)
         }
     }
     return r;
+}
+
+void LinkedPoly::InsertTerm(int coffi,int expo){
+    if(!head){
+        head=new Term;
+        head->cofficient=coffi;
+        head->exponent=expo;
+        head->next=nullptr;
+        tail=head;
+        return;
+    }
+    Term *p=head;
+    while(p){
+        if(p->exponent==expo){
+            p->cofficient+=coffi;
+            return;
+        }
+        p=p->next;
+    }
+    Term *newTerm=new Term;
+    newTerm->cofficient=coffi;
+    newTerm->exponent=expo;
+    newTerm->next=nullptr;
+    tail->next=newTerm;
+    tail=newTerm;
+}
+
+void LinkedPoly::DisplayExpression(){
+    Term *p=head;
+    while(p){
+        if(p->next==nullptr){
+            cout<<p->cofficient;
+            p->exponent!=0?cout<<"X^"<<p->exponent:cout<<"";
+        }
+        else{
+            cout<<p->cofficient;
+            p->exponent!=0?cout<<"X^"<<p->exponent<<"+":cout<<""<<"+";
+        }
+        p=p->next;
+    }
+}
+
+float LinkedPoly::SolveExpression(int valueOfx){
+    float result=0.0;
+    Term *p=head;
+    while(p){
+        result+=p->cofficient*pow(valueOfx,p->exponent);
+        p=p->next;
+    }
+    return result;
 }
