@@ -24,6 +24,9 @@ public:
   int *Pop();
   int *Peak(int pos);
   void Display();
+  bool isEmpty();
+  bool isFull();
+  int* getTopValue();
 };
 
 void Stack::Push(int element)
@@ -70,6 +73,22 @@ int* Stack::Peak(int pos){
   int* x=nullptr;
   if(pos<=top+1){
     x= &A[top-pos+1];
+  }
+  return x;
+}
+
+bool Stack::isEmpty(){
+  return top==-1;
+}
+
+bool Stack::isFull(){
+  return top==size-1;
+}
+
+int* Stack::getTopValue(){
+  int*x=nullptr;
+  if(!isEmpty()){
+    x=&A[top];
   }
   return x;
 }
