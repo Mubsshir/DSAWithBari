@@ -4,39 +4,42 @@ class Node
 {
 public:
   int ele;
-  Node* next;
+  Node *next;
 };
 class Stack
 {
 private:
-  Node *head=nullptr;
+  Node *head = nullptr;
 
 public:
   Stack()
   {
-    head=nullptr;
+    head = nullptr;
   }
-  Stack(int a[],int n)
+  Stack(int a[], int n)
   {
-      head=new Node;
-      head->ele=a[0];
-      head->next=nullptr;
-      Node *p;
-      for(int i=1;i<n;i++){
-        p=new Node;
-        p->ele=a[i];
-        p->next=head;
-        head=p;
-      }
+    head = new Node;
+    head->ele = a[0];
+    head->next = nullptr;
+    Node *p;
+    for (int i = 1; i < n; i++)
+    {
+      p = new Node;
+      p->ele = a[i];
+      p->next = head;
+      head = p;
+    }
   }
   ~Stack()
   {
-    if(!head) return;
-    Node *p=head;
-    while(p){
-      head=head->next;
+    if (!head)
+      return;
+    Node *p = head;
+    while (p)
+    {
+      head = head->next;
       delete p;
-      p=head;
+      p = head;
     }
   }
   void Push(int element);
@@ -51,12 +54,12 @@ public:
 
 void Stack::Push(int element)
 {
-  Node *p=new Node;
+  Node *p = new Node;
   if (p)
   {
-    p->ele=element;
-    p->next=head;
-    head=p;
+    p->ele = element;
+    p->next = head;
+    head = p;
   }
   else
   {
@@ -66,12 +69,13 @@ void Stack::Push(int element)
 
 int *Stack::Pop()
 {
-  int *x=nullptr;
-  if(head){
-    Node*p;
-    p=head;
-    x=&p->ele;
-    head=head->next;
+  int *x = nullptr;
+  if (head)
+  {
+    Node *p;
+    p = head;
+    x = &p->ele;
+    head = head->next;
     delete p;
   }
   return x;
@@ -79,27 +83,29 @@ int *Stack::Pop()
 
 void Stack::Display()
 {
-  Node *p=head;
+  Node *p = head;
   printf("\n");
   while (p)
   {
     printf("| %2d |\n", p->ele);
     printf(" --- \n");
-    p=p->next;
+    p = p->next;
   }
   printf("\n");
 }
 
 int *Stack::Peak(int pos)
 {
-  int count=0;
-  Node *p=head;
-  while(p){
+  int count = 0;
+  Node *p = head;
+  while (p)
+  {
     count++;
-    if(count==pos){
+    if (count == pos)
+    {
       return &p->ele;
     }
-    p=p->next;
+    p = p->next;
   }
   return nullptr;
 }
@@ -111,25 +117,55 @@ bool Stack::isEmpty()
 
 bool Stack::isFull()
 {
-  Node *p=new Node;
-  return p?false:true;
+  Node *p = new Node;
+  return p ? false : true;
 }
 
 int *Stack::getTopValue()
 {
-  if(head){
+  if (head)
+  {
     return &head->ele;
   }
   return nullptr;
 }
 
-bool Stack::IsParanthesisMatch(string a){
-  for(int i=0;a[i]!='\0';i++){
-    if(a[i]=='('){
+bool Stack::IsParanthesisMatch(string a)
+{
+  for (int i = 0; a[i] != '\0'; i++)
+  {
+    if (a[i] == '(' || a[i] == '[' || a[i] == '{')
+    {
       Push(a[i]);
     }
-    if(a[i]==')'){
-      if(isEmpty()) return false;
+    else if (a[i] == ')')
+    {
+      if (isEmpty())
+        return false;
+      if (*getTopValue() != '(')
+      {
+        return false;
+      }
+      Pop();
+    }
+    else if (a[i] == ']')
+    {
+      if (isEmpty())
+        return false;
+      if (*getTopValue() != '[')
+      {
+        return false;
+      }
+      Pop();
+    }
+    else if (a[i] == '}')
+    {
+      if (isEmpty())
+        return false;
+      if (*getTopValue() != '{')
+      {
+        return false;
+      }
       Pop();
     }
   }
