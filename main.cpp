@@ -1,5 +1,6 @@
 #include<iostream>
 #include<vector>
+#include"poly.hpp"
 using namespace std;
 
 void DisplayExpression(vector<int> c){
@@ -24,9 +25,19 @@ int BruteForcePoly(vector<int> coefficients , int x){
   return sum+coefficients[len-1];//add last coefficient with 0 degree and return result
 }
 
+int HornerAlgoPoly (vector<int> coefficients, int x){
+  int s=coefficients[0];
+  for(int i=1;i<coefficients.size();i++){
+    s=s*x+coefficients[i];
+  }
+  return s;
+}
+
 int main(){
-  vector<int> coefficients={5,8,6,9};
-  DisplayExpression(coefficients);
-  cout<<"\n"<<BruteForcePoly(coefficients,1);
+  
+  // vector<int> coefficients={5,8,6,9,5,8,6,9};
+  // DisplayExpression(coefficients);
+  // cout<<"\n"<<BruteForcePoly(coefficients,1);
+  // cout<<"\n"<<HornerAlgoPoly(coefficients,1);
   return 0;
 }
