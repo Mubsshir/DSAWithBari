@@ -63,7 +63,8 @@ public:
       head = head->next;
       delete temp;
       temp = head;
-      if(temp==tail){
+      if (temp == tail)
+      {
         delete temp;
         break;
       }
@@ -137,7 +138,8 @@ public:
       head = head->next;
       delete p;
       p = head;
-      if(p==tail){
+      if (p == tail)
+      {
         delete p;
         break;
       }
@@ -150,6 +152,7 @@ public:
   int *popFront();
   int *pop(int pos = -1);
   void Reverse();
+  int FindMiddle();
 };
 
 /// This method print the whole linked list
@@ -698,15 +701,16 @@ void DoublyLinkedList::Insert(int element, int pos)
     temp->prev = !isLinear ? tail : nullptr;
     temp->data = element;
     temp->next = head;
-    if(!isLinear){
-      tail->next=temp;
+    if (!isLinear)
+    {
+      tail->next = temp;
     }
     head = temp;
     return;
   }
   if (pos == -1 || pos == size + 1)
   {
-    temp->next = !isLinear?head: nullptr;
+    temp->next = !isLinear ? head : nullptr;
     temp->prev = tail;
     temp->data = element;
     tail->next = temp;
@@ -746,8 +750,8 @@ int *DoublyLinkedList::popFront()
   Node *temp;
   temp = head;
   head = head->next;
-  head->prev = !isLinear?tail: nullptr;
-  tail->next=!isLinear?head: nullptr;
+  head->prev = !isLinear ? tail : nullptr;
+  tail->next = !isLinear ? head : nullptr;
   int *x = new int(temp->data);
   delete temp;
   return x;
@@ -762,7 +766,8 @@ int *DoublyLinkedList::popBack()
   Node *temp;
   temp = tail;
   tail = tail->prev;
-  tail->next = !isLinear?head: nullptr;;
+  tail->next = !isLinear ? head : nullptr;
+  ;
   int *x = new int(temp->data);
   delete temp;
   return x;
@@ -820,4 +825,17 @@ void DoublyLinkedList::Reverse()
       break;
     }
   }
+}
+
+int DoublyLinkedList::FindMiddle()
+{
+  Node *p, *q;
+  p = q = head;
+  while (p && p->next)
+  {
+    p = p->next->next;
+    q = q->next;
+    if(!isLinear && p==head)break;
+  }
+  return q->data;
 }
