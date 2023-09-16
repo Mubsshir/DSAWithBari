@@ -34,10 +34,15 @@ int HornerAlgoPoly (vector<int> coefficients, int x){
 }
 
 int main(){
-  
-  // vector<int> coefficients={5,8,6,9,5,8,6,9};
-  // DisplayExpression(coefficients);
-  // cout<<"\n"<<BruteForcePoly(coefficients,1);
-  // cout<<"\n"<<HornerAlgoPoly(coefficients,1);
+  // Poly p(4);
+  // p.addTerm(2,3);
+  // p.addTerm(3,2);
+  // p.addTerm(1,1);
+  // p.addTerm(4,0);
+  // p.DisplayExpression();
+  vector<int> coefficients={3,2,0,-5,7};
+  DisplayExpression(coefficients);
+  cout<<"\n"<<BruteForcePoly(coefficients,1);
+  cout<<"\n"<<HornerAlgoPoly(coefficients,1);
   return 0;
 }
