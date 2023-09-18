@@ -25,8 +25,7 @@ int PowerLeftToRight(int base, int exponent) {
 
 int PowerRightToLeft(int base, int exponent) {
   vector<int> expBits = {};
-  int x = base;
-  int result;
+  int result=base;
   while (exponent != 0) {
     if (exponent % 2 != 0) {
       expBits.push_back(1);
@@ -35,16 +34,29 @@ int PowerRightToLeft(int base, int exponent) {
     }
     exponent = exponent / 2;
   }
-  if (expBits[0] == 1) {
-    result = x;
-  } else {
-    result = 0;
-  }
-  for(int i=1; i<expBits.size()-1;i++){
-    x*=x;
+
+  
+  for(int i=1; i<expBits.size();i++){
+    base*=base;
     if(expBits[i]==1){
-      result*=x;
+      result*=base;
     }
+  }
+  return result;
+}
+
+
+int Power(int base ,int exp){
+  int result=1;
+  while (exp>0)
+  {
+    
+    if(exp%2==1){
+      result*=base;
+    }
+      base*=base;
+ 
+    exp/=2;
   }
   return result;
 }

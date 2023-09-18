@@ -1,7 +1,9 @@
-#include "BinaryExpo.hpp"
-#include "matrix.hpp"
+#include "Sorting.hpp"
+
 int main() {
-  cout << endl << PowerLeftToRight(4, 11) << endl;
-  cout << endl << PowerRightToLeft(4, 11) << endl;
+  int myArray[] = {10, 9, 1, 2, 3, 6,2,4,5,6, 4};
+  show(myArray, sizeof(myArray) / sizeof(myArray[0]));
+  BubbleSort(myArray,sizeof(myArray) / sizeof(myArray[0]));
+  show(myArray,sizeof(myArray) / sizeof(myArray[0]));
   return 0;
 }
