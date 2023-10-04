@@ -65,7 +65,7 @@ int main()
   int totalWeight=0;
   int i=0;
   while(totalWeight<knap.capacity){
-    if(totalWeight+box.i[i].weight<knap.capacity){
+    if(totalWeight+box.i[i].weight<=knap.capacity){
       knap.i[i]=box.i[i];
       knap.i[i].fraction=1.0f;
       totalWeight+=box.i[i].weight;
