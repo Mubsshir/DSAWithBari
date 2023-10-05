@@ -1,4 +1,4 @@
-#include <iostream>
+#include<iostream>
 using namespace std;
 
 struct Item
@@ -42,13 +42,13 @@ void BubbleSort(struct Item *itm, int size)
 int main()
 {
   struct Knapsack knap;
-  knap.capacity = 20;
+  knap.capacity = 15;
   struct Box box;
-  box.slot = 3;
+  box.slot = 7;
   box.i = new Item[box.slot];
   knap.i=new Item[box.slot];
-  int price[] = {25, 24, 15};
-  int weigh[] = {18, 15, 10};
+  int price[] = {4,5,10,7,6,8,9};
+  int weigh[] = {1,2,3,6,2,4,5};
   for (int i = 0; i < box.slot; i++)
   {
     struct Item itm;
